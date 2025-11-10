@@ -1,0 +1,14 @@
+/* Estilos para el Navbar */
+.navbar {
+  background-color: #0e6b64;
+}
+
+.btn-navbar {
+  border: 1px solid #000;
+  color: #000;
+}
+
+.btn-navbar:hover {
+  color: #fff;
+  background-color: #00a884;
+}
