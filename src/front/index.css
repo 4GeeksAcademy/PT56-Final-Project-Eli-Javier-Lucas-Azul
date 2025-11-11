@@ -12,3 +12,8 @@
   color: #fff;
   background-color: #00a884;
 }
+
+/* Estilos para el cuerpo */
+.container {
+  max-width: 500px;
+}
