@@ -42,14 +42,11 @@ app.register_blueprint(api, url_prefix='/api')
 
 # Handle/serialize errors like a JSON object
 
-
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):
     return jsonify(error.to_dict()), error.status_code
 
 # generate sitemap with all your endpoints
-
-
 @app.route('/')
 def sitemap():
     if ENV == "development":
@@ -65,6 +62,25 @@ def serve_any_other_file(path):
     response.cache_control.max_age = 0  # avoid cache memory
     return response
 
+
+#########################
+# API DOCUMENTATION     #
+# User creation         #
+# Method: POST          #
+# email, password, name #
+#########################
+
+# SIGNUP > Registro
+@app.route("/api/signup", methods=["POST"])
+def signup(): 
+
+
+
+
+def login():
+     data = request.get_json() or {}
+     email = data.get("email" , "").strip()
+     password = data.get("password", "")
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
