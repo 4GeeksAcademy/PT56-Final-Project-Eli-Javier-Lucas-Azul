@@ -12,8 +12,18 @@ import { Login } from "./pages/Login";
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />} errorElement={<h1>Not found!</h1>} >
-      <Route path="/" element={<Signup />} />
-      <Route path="/login" element={<Login />} />
+
+      {/* Homepage */}
+      <Route index element={<Signup />} />
+
+      {/* Auth Routes */}
+      <Route path="signup" element={<Signup />} />
+
+
+
+      {/* Other Routes */}
+      <Route path="single/:theId" element={<Single />} />  {/* Dynamic route for single items */}
+      <Route path="demo" element={<Demo />} />
     </Route>
   )
 );

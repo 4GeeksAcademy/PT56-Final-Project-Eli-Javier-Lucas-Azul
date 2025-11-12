@@ -5,11 +5,12 @@ import os
 from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
 from flask_swagger import swagger
-from api.utils import APIException, generate_sitemap
-from api.models import db
-from api.routes import api
-from api.admin import setup_admin
-from api.commands import setup_commands
+from Backend.utils import APIException, generate_sitemap
+from Backend.models import db, User
+from Backend.routes import api
+from Backend.admin import setup_admin
+from Backend.commands import setup_commands
+from flask_jwt_extended import create_access_token
 
 # from models import Person
 
@@ -42,11 +43,14 @@ app.register_blueprint(api, url_prefix='/api')
 
 # Handle/serialize errors like a JSON object
 
+
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):
     return jsonify(error.to_dict()), error.status_code
 
 # generate sitemap with all your endpoints
+
+
 @app.route('/')
 def sitemap():
     if ENV == "development":
@@ -54,6 +58,8 @@ def sitemap():
     return send_from_directory(static_file_dir, 'index.html')
 
 # any other endpoint will try to serve it like a static file
+
+
 @app.route('/<path:path>', methods=['GET'])
 def serve_any_other_file(path):
     if not os.path.isfile(os.path.join(static_file_dir, path)):
@@ -71,16 +77,55 @@ def serve_any_other_file(path):
 #########################
 
 # SIGNUP > Registro
-# @app.route("/api/signup", methods=["POST"])
-# def signup(): 
+@app.route("/api/login", methods=["POST"])
+def signup():
+    data = request.get_json() or {}
+    name = data.get("name", "").strip()
+    email = data.get("email", "").strip().lower()
+    password = data.get("password", "").strip()
+
+    # Validacion de todos los campos #
+    if not name or not email or not password:
+        return jsonify({"Mensaje": "Todos los campos son obligatorios!"}), 400
+    # Validacion de longitud de password #
+    if len(password) < 12:
+        return jsonify({"Mensaje": "La contraseña debe tener minimo 12 caracteres."}), 400
+    # Verificacion de que no exista el mail #
+    if User.query.filter_by(email=email).first():
+        return jsonify({"Mensaje": "El email ya fue registrado"}), 400
+
+    # Creacion de usuario #
+    NewUser = User(name=name, email=email)
+    NewUser.set_password(password)
+    db.session.add(NewUser)
+    db.session.commit()
+    return jsonify({"Mensaje": "El usuario se ha creado correctamente", "user": NewUser.serialize()}), 201
+
+# Login > Acceso
 
 
-
-
+@app.route("/api/login", methods=["POST"])
 def login():
-     data = request.get_json() or {}
-     email = data.get("email" , "").strip()
-     password = data.get("password", "")
+    data = request.get_json() or {}
+    email = data.get("email", "").strip().lower()
+    password = data.get("password", "").strip()
+
+    # Validacion de todos los campos #
+    if not email or not password:
+        return jsonify({"Mensaje": "Se requiere email y contraseña"}), 400
+    # Verificacion de que no exista el mail #
+
+    user = User.query.filter_by(email=email).first()
+    if not user or not user.check_password(password):
+        return jsonify({"Mensaje": "Credenciales invalidas"}), 401
+
+    access_token = create_access_token(identity=str(user.id))
+    return jsonify({
+        "Mensaje": "Login Exitoso",
+        "token": access_token,
+        "user": user.serialize()
+    }), 200
+
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
