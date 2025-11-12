@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export const Navbar = () => {
 
 	return (
-		<div className="container-fluid">
+		<div className="w-100">
 			<nav className="navbar">
 				<div className="container d-flex justify-content-between">
 					<div className="">Icono de la app</div>

@@ -13,18 +13,46 @@
   background-color: #00a884;
 }
 
-/* Estilos para el cuerpo */
+/* Estilos para los formularios <Login> y <Signup> */
+
 .container {
   max-width: 500px;
 }
 
+.card {
+  background-color: #2c2f36;
+}
+
+.form-control {
+  background-color: #515963;
+  border: none;
+  color: #fff;
+}
+
+.form-control::placeholder {
+  color: #fff;
+}
+
 .btn-registro {
   background-color: #0e6b64;
-  border: none;
+  border: 1px solid #0e6b64;
+  color: #fff;
 }
 
 .btn-registro:hover {
-  background-color: #fff;
+  background-color: #00a884;
+  border: 1px solid #00a884;
+  color: #fff;
+}
+
+.btn-iniciar_sesion {
   border: 1px solid #0e6b64;
   color: #0e6b64;
+  background-color: #fff;
+}
+
+.btn-iniciar_sesion:hover {
+  background-color: #00a884;
+  border: 1px solid #00a884;
+  color: #fff;
 }

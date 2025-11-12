@@ -1,33 +1,33 @@
 import React, { useEffect } from "react"
-import rigoImageUrl from "../assets/img/rigo-baby.jpg";
-import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Signup = () => {
 
+	const navigate = useNavigate();
+
 	return (
 		<div className="container mt-5 d-flex flex-column">
-			<div className="text-center">
-				<h1>Registrate</h1>
-			</div>
 			<div>
-				<form className="card p-3">
-					<div className="mb-3">
-						<label for="name" className="form-label">Nombre</label>
-						<input type="text" className="form-control" id="name" aria-describedby="name" />
+				<form className="card p-5 d-flex">
+					<div className="text-center">
+						<h1 className="text-white pb-3">Registrate</h1>
 					</div>
 					<div className="mb-3">
-						<label for="email" className="form-label">Email</label>
-						<input type="email" className="form-control" id="email" />
+						<input type="text" className="form-control" placeholder="Nombre" />
 					</div>
 					<div className="mb-3">
-						<label for="password" className="form-label">Contraseña</label>
-						<input type="password" className="form-control" id="password" />
+						<input type="email" className="form-control" placeholder="Email" />
 					</div>
-					<button type="submit" className="btn-registro btn btn-primary">Registrarse</button>
+					<div className="mb-3">
+						<input type="password" className="form-control" placeholder="Contraseña" />
+					</div>
+					<div className="d-flex justify-content-center gap-2">
+						<button type="submit" className="btn btn-registro w-100">Registrarse</button>
+						<Link to="/login" className="btn btn-iniciar_sesion w-100">
+							Iniciar sesión
+						</Link>
+					</div>
 				</form>
-			</div>
-			<div>
-				<p>¿Ya tienes una cuenta? Ingresa aquí</p>
 			</div>
 		</div>
 	);

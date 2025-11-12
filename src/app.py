@@ -71,8 +71,8 @@ def serve_any_other_file(path):
 #########################
 
 # SIGNUP > Registro
-@app.route("/api/signup", methods=["POST"])
-def signup(): 
+# @app.route("/api/signup", methods=["POST"])
+# def signup(): 
 
 
 
