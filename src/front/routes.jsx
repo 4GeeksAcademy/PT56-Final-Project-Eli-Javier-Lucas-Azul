@@ -11,6 +11,8 @@ import { Login } from "./pages/Login";
 import { Budget } from "./pages/Budget";
 import { Home } from "./pages/Home";
 import { PrivateRoute } from "./components/PrivateRoute";
+import { AgregarGasto } from "./components/AgregarGasto";
+import { AgregarIngreso } from "./components/AgregarIngreso";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,14 +25,10 @@ export const router = createBrowserRouter(
       <Route path="home" element={<Home />} />
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
-      <Route
-        path="budget"
-        element={
-          <PrivateRoute>
-            <Budget />
-          </PrivateRoute>
-        }
-      />
+      <Route path="budget" element={<PrivateRoute><Budget /></PrivateRoute>} />
+      <Route path="AgregarGasto" element={<AgregarGasto />} />
+      <Route path="AgregarIngreso" element={<AgregarIngreso />} />
+
 
     </Route>
   )
