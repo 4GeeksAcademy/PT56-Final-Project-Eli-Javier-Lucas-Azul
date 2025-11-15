@@ -13,6 +13,30 @@
   background-color: #00a884;
 }
 
+.nav-btns {
+  background-color: #fff;
+  color: #0e6b64;
+  border: 1px solid #0e6b64;
+}
+
+.nav-btns:hover {
+  background-color: #0e6b64;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.nav-btn_cerrar_sesion {
+  background-color: #fff;
+  color: #dc2525;
+  border: 1px solid #dc2525;
+}
+
+.nav-btn_cerrar_sesion:hover {
+  background-color: #dc2525;
+  color: #fff;
+  border: 1px solid #dc2525;
+}
+
 /* Estilos para los formularios <Login> y <Signup> */
 
 .container {

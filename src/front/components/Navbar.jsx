@@ -37,14 +37,14 @@ export const Navbar = () => {
 				{/* Si el token NO existe, muestra el login y el signup */}
 				{!token && (
 					<>
-						<Link className="btn btn-outline-success">Iniciar sesión</Link>
-						<Link className="btn btn-outline-primary">Registrate</Link>
+						<Link className="btn nav-btns">Iniciar sesión</Link>
+						<Link className="btn nav-btns">Registrate</Link>
 					</>
 				)}
 
 				{/* Si el token SI existe, mostrar Cerrar sesion */}
 				{token && (
-					<button className="btn btn-ranger" onClick={handleLogout}>Cerrar sesión</button>
+					<button className="btn nav-btn_cerrar_sesion" onClick={handleLogout}>Cerrar sesión</button>
 				)}
 
 			</div>
