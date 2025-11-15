@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 // Almacenamos los datos ingresados 
@@ -38,9 +38,10 @@ export const Login = () => {
             if (response.ok) {
                 alert(data.Mensaje);
                 localStorage.setItem("jwt", data.token);
+                localStorage.setItem("user", JSON.stringify(data.user))
                 setTimeout(() => {
                     navigate("/budget");
-                }, 50);
+                }, 1000);
             } else {
                 alert(data.Mensaje);
             }

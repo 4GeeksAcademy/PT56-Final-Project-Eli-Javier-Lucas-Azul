@@ -19,11 +19,18 @@ export const Budget = () => {
         check();
     }, []);
 
+    const user = JSON.parse(localStorage.getItem("user"));
+
     return (
         <div className="container mt-5 d-flex flex-column">
-            <div>
-                Bienvenido (tal), haz tu presupuesto familiar aquí.
-            </div>
+            {user ? (
+                <div>
+                    <h3>Estamos felices de verte, {user.name}.</h3>
+                    <p>Crea tu presupuesto familiar aquí.</p>
+                </div>
+            ) : (
+                <h3>¡Disculpa crack, te faltó logearte!</h3>
+            )}
         </div>
     )
 }
