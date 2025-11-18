@@ -39,8 +39,11 @@
 
 /* Estilos para los formularios <Login> y <Signup> */
 
-.container {
+.container_formulario {
   max-width: 500px;
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  font-weight: 800;
+  font-style: normal;
 }
 
 .card {
@@ -62,6 +65,7 @@
   background-color: #0e6b64;
   border: 1px solid #0e6b64;
   color: #fff;
+  font-size: 20px;
 }
 
 .btn-registro:hover,
@@ -92,4 +96,5 @@
   border: none;
   background-color: #515963;
   color: white;
+  font-size: 20px;
 }

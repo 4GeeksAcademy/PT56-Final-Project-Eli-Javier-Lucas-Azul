@@ -53,7 +53,7 @@ export const Signup = () => {
 		}
 	}
 	return (
-		<div className="container mt-5 d-flex flex-column">
+		<div className="container_formulario mx-auto mt-5 d-flex flex-column">
 			<div>
 				<form className="card p-3" onSubmit={handleSubmit}>
 					<div className="text-center">

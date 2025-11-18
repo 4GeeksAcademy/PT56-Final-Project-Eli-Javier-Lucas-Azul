@@ -57,7 +57,7 @@ export const Login = () => {
     };
 
     return (
-        <div className="container mt-5 d-flex flex-column">
+        <div className="container_formulario mx-auto mt-5 d-flex flex-column">
             <div>
                 <Form className="card p-3" style={{ backgroundColor: "#2c2f36" }} onSubmit={handleSubmit}>
 
