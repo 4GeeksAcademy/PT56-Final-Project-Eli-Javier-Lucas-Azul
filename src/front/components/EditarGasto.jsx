@@ -1,16 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
-export const AgregarGasto = ({ show, handleClose, budgetId, token, onAdded }) => {
+export const EditarGasto = ({ show, handleClose, gasto, token, onUpdated }) => {
 
-    const [form, setForm] = useState({
-        monto: "",
-        descripcion: "",
-        categoria: "",
+    const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3001";
+
+
+    const mapGastoToForm = (gastoData) => ({
+        monto: gastoData ? gastoData.amount : "",
+        descripcion: gastoData ? gastoData.description : "",
+        categoria: gastoData ? gastoData.category : "",
+        id: gastoData ? gastoData.id : null,
     });
 
-    // Variable de entorno
-    const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3001";
+    const [form, setForm] = useState(mapGastoToForm(gasto));
+
+    useEffect(() => setForm(mapGastoToForm(gasto)), [gasto]);
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -19,53 +24,52 @@ export const AgregarGasto = ({ show, handleClose, budgetId, token, onAdded }) =>
     const handleSubmit = async () => {
         const amountNumber = Number(form.monto);
 
-        // Validaciones
-        if (!form.monto.trim() || isNaN(amountNumber) || amountNumber < 0) {
-            return alert("Monto inválido o negativo");
+        if (isNaN(amountNumber) || amountNumber < 0) {
+            return alert("El monto es inválido o negativo.");
         }
         if (!form.descripcion.trim()) return alert("La descripción es obligatoria");
         if (!form.categoria.trim()) return alert("La categoría es obligatoria");
 
+        const body = {
+            amount: amountNumber,
+            description: form.descripcion,
+            category: form.categoria,
+        };
+
         try {
-            const res = await fetch(
-                `${API_URL}/api/budgets/${budgetId}/gasto`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: JSON.stringify({
-                        description: form.descripcion,
-                        category: form.categoria,
-                        amount: amountNumber
-                    })
-                }
-            );
+            const res = await fetch(`${API_URL}/api/gastos/${gasto.id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(body),
+            });
 
             const data = await res.json();
 
             if (!res.ok) {
-                return alert(data.msg || "Error al guardar el gasto.");
+                return alert(data.msg || "Error al actualizar el gasto.");
             }
 
-            onAdded();
+            onUpdated();
             handleClose();
-            setForm({ monto: "", descripcion: "", categoria: "" });
         } catch (error) {
-            alert("Error al conectar con el servidor");
+            alert("Error al conectar con el servidor.");
         }
     };
+
+    if (!gasto) return null;
 
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Agregar Gasto</Modal.Title>
+                <Modal.Title>Editar Gasto</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
                 <Form>
-                    <Form.Group>
+                    <Form.Group className="mb-3">
                         <Form.Label>Monto</Form.Label>
                         <Form.Control
                             type="number"
@@ -75,7 +79,7 @@ export const AgregarGasto = ({ show, handleClose, budgetId, token, onAdded }) =>
                         />
                     </Form.Group>
 
-                    <Form.Group>
+                    <Form.Group className="mb-3">
                         <Form.Label>Descripción</Form.Label>
                         <Form.Control
                             type="text"
@@ -85,7 +89,7 @@ export const AgregarGasto = ({ show, handleClose, budgetId, token, onAdded }) =>
                         />
                     </Form.Group>
 
-                    <Form.Group>
+                    <Form.Group className="mb-3">
                         <Form.Label>Categoría</Form.Label>
                         <Form.Control
                             type="text"
@@ -99,7 +103,7 @@ export const AgregarGasto = ({ show, handleClose, budgetId, token, onAdded }) =>
 
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>Cerrar</Button>
-                <Button variant="success" onClick={handleSubmit}>Guardar</Button>
+                <Button variant="primary" onClick={handleSubmit}>Guardar Cambios</Button>
             </Modal.Footer>
         </Modal>
     );

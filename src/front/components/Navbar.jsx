@@ -19,7 +19,7 @@ export const Navbar = () => {
 				<Link to="/Home">
 					<img
 						src={Icon}
-						alt="Work in progress"
+						alt=""
 						width={90}
 						height={90}
 						className="rounded-4 border border-success border-4"

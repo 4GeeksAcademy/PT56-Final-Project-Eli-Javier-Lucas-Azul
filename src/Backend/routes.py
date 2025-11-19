@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from Backend.models import db, User
+from Backend.models import db, User, Ingreso, Gasto, Budget
 from Backend.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
@@ -24,10 +24,11 @@ def handle_hello():
 
 #########################
 # API DOCUMENTATION     #
-# User creation         #
-# Method: POST          #
-# email, password, name #
 #########################
+
+# ===================#
+#  Rutas de Usuario #
+# ===================#
 
 # SIGNUP > Registro
 
@@ -69,7 +70,6 @@ def login():
     if not email or not password:
         return jsonify({"Mensaje": "Se requiere email y contraseña"}), 400
     # Verificacion de que no exista el mail #
-
     user = User.query.filter_by(email=email).first()
     if not user or not user.check_password(password):
         return jsonify({"Mensaje": "Credenciales invalidas"}), 401
@@ -101,3 +101,242 @@ def verify():
         "message": "Token válido",
         "user": user.serialize()
     }), 200
+
+
+# =======================#
+#  Rutas de Presupuesto #
+# =======================#
+
+# Crear Presupuesto
+@api.route("/budgets", methods=["POST"])
+@jwt_required()
+def create_budget():
+    user_id = get_jwt_identity()
+    data = request.get_json() or {}
+    name = (data.get("name") or "").strip()
+    # Validar que el presupuesto tenga nombre
+    if not name:
+        return jsonify({"msg": "El nombre del presupuesto es obligatorio"}), 400
+
+    # Validar que no existan duplicados
+    existing = Budget.query.filter_by(name=name, user_id=int(user_id)).first()
+    if existing:
+        return jsonify({"msg": "Ya existe un presupuesto con ese nombre"}), 400
+
+    # Crear un nuevo presupuesto
+    new_budget = Budget(
+        name=name,
+        user_id=int(user_id)
+    )
+
+    db.session.add(new_budget)
+    db.session.commit()
+
+    return jsonify(new_budget.serialize()), 201
+
+
+# Llamar Presupuesto por ID
+@api.route("/budgets/<int:budget_id>", methods=["GET"])
+@jwt_required()
+def get_budget(budget_id):
+    user_id = get_jwt_identity()
+
+    budget = Budget.query.filter_by(id=budget_id, user_id=user_id).first()
+    if not budget:
+        return jsonify({"msg": "Presupuesto no encontrado"}), 404
+
+    return jsonify(budget.serialize()), 200
+
+
+# ====================#
+#  Rutas de Ingresos #
+# ====================#
+
+# Agregar Ingreso
+@api.route("/budgets/<int:budget_id>/ingreso", methods=["POST"])
+@jwt_required()
+def add_ingreso(budget_id):
+    user_id = get_jwt_identity()
+    budget = Budget.query.filter_by(id=budget_id, user_id=user_id).first()
+
+    if not budget:
+        return jsonify({"msg": "Presupuesto no encontrado"}), 404
+
+    data = request.get_json() or {}
+    description = (data.get("description") or "Ingreso").strip()
+    category = (data.get("category") or "Otros").strip()
+    amount = data.get("amount")
+
+    try:
+        amount = float(amount)
+    except:
+        return jsonify({"msg": "Monto inválido"}), 400
+
+    if amount < 0:
+        return jsonify({"msg": "Monto NEGATIVO"}), 400
+
+    ingreso = Ingreso(
+        description=description,
+        category=category,
+        amount=amount,
+        budget_id=budget_id
+    )
+
+    db.session.add(ingreso)
+    db.session.commit()
+
+    return jsonify(ingreso.serialize()), 201
+
+# Editar Ingreso
+
+
+# <-- CORRECCIÓN: Se agrega la ruta
+@api.route("/ingresos/<int:ingreso_id>", methods=["PUT"])
+@jwt_required()
+def update_ingreso(ingreso_id):
+    user_id = get_jwt_identity()
+
+    ingreso = Ingreso.query.get(ingreso_id)
+    if not ingreso:
+        return jsonify({"msg": "Ingreso no encontrado"}), 404
+
+    budget = Budget.query.get(ingreso.budget_id)
+    if budget.user_id != user_id:
+        return jsonify({"msg": "No autorizado"}), 403
+
+    data = request.get_json() or {}
+
+    if "amount" in data:
+        try:
+            amount = float(data["amount"])
+            if amount < 0:
+                return jsonify({"msg": "Monto inválido"}), 400
+            ingreso.amount = amount
+        except:
+            return jsonify({"msg": "Monto inválido"}), 400
+
+    ingreso.description = data.get("description", ingreso.description)
+    ingreso.category = data.get("category", ingreso.category)
+
+    db.session.commit()
+    return jsonify({
+        "msg": "Ingreso actualizado",
+        "ingreso": ingreso.serialize()
+    }), 200
+
+
+@api.route("/ingresos/<int:ingreso_id>", methods=["DELETE"])
+@jwt_required()
+def delete_ingreso(ingreso_id):
+    user_id = get_jwt_identity()
+
+    ingreso = Ingreso.query.get(ingreso_id)
+    if not ingreso:
+        return jsonify({"msg": "Ingreso no encontrado"}), 404
+
+    budget = Budget.query.get(ingreso.budget_id)
+    if budget.user_id != user_id:
+        return jsonify({"msg": "No autorizado"}), 403
+
+    db.session.delete(ingreso)
+    db.session.commit()
+
+    return jsonify({"msg": "Ingreso eliminado"}), 200
+
+
+# ===================#
+#  Rutas de Gastos  #
+# ===================#
+# Agregar Gasto
+# <-- CORRECCIÓN: Se aplica correctamente el decorador
+@api.route("/budgets/<int:budget_id>/gasto", methods=["POST"])
+@jwt_required()
+def add_gasto(budget_id):
+    user_id = get_jwt_identity()
+    budget = Budget.query.filter_by(id=budget_id, user_id=user_id).first()
+
+    if not budget:
+        return jsonify({"msg": "Presupuesto no encontrado"}), 404
+
+    data = request.get_json() or {}
+    description = (data.get("description") or "Gasto").strip()
+    category = (data.get("category") or "General").strip()
+    amount = data.get("amount")
+
+    try:
+        amount = float(amount)
+    except:
+        return jsonify({"msg": "Monto inválido"}), 400
+
+    if amount < 0:
+        return jsonify({"msg": "Monto inválido"}), 400
+
+    gasto = Gasto(
+        description=description,
+        category=category,
+        amount=amount,
+        budget_id=budget_id
+    )
+
+    db.session.add(gasto)
+    db.session.commit()
+
+    return jsonify(gasto.serialize()), 201
+
+
+# Editar Gasto
+
+@api.route("/gastos/<int:gasto_id>", methods=["PUT"])
+@jwt_required()
+def update_gasto(gasto_id):
+    user_id = get_jwt_identity()
+
+    gasto = Gasto.query.get(gasto_id)
+    if not gasto:
+        return jsonify({"msg": "Gasto no encontrado"}), 404
+
+    budget = Budget.query.get(gasto.budget_id)
+    if budget.user_id != user_id:
+        return jsonify({"msg": "No autorizado"}), 403
+
+    data = request.get_json() or {}
+
+    if "amount" in data:
+        try:
+            amount = float(data["amount"])
+            if amount < 0:
+                return jsonify({"msg": "Monto inválido"}), 400
+            gasto.amount = amount
+        except:
+            return jsonify({"msg": "Monto inválido"}), 400
+
+    gasto.description = data.get("description", gasto.description)
+    gasto.category = data.get("category", gasto.category)
+
+    db.session.commit()
+
+    return jsonify({
+        "msg": "Gasto actualizado",
+        "gasto": gasto.serialize()
+    }), 200
+
+# Eliminar gasto
+
+
+@api.route("/gastos/<int:gasto_id>", methods=["DELETE"])
+@jwt_required()
+def delete_gasto(gasto_id):
+    user_id = get_jwt_identity()
+
+    gasto = Gasto.query.get(gasto_id)
+    if not gasto:
+        return jsonify({"msg": "Gasto no encontrado"}), 404
+
+    budget = Budget.query.get(gasto.budget_id)
+    if budget.user_id != user_id:
+        return jsonify({"msg": "No autorizado"}), 403
+
+    db.session.delete(gasto)
+    db.session.commit()
+
+    return jsonify({"msg": "Gasto eliminado"}), 200
