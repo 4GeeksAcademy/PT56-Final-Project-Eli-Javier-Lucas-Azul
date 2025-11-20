@@ -1,0 +1,89 @@
+import React from 'react';
+import { Pie } from 'react-chartjs-2';
+// Importaciones necesarias de Chart.js para que el gráfico funcione
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+
+// **REGISTRAR ELEMENTOS DE CHART.JS**
+// Esto es esencial para que Chart.js sepa cómo dibujar el Pie Chart
+ChartJS.register(ArcElement, Tooltip, Legend);
+
+export const Graficos = ({ gastos }) => {
+
+    // Lógica para resumir gastos por categoría
+    const resumenPorCategoria = (items) => {
+        return items.reduce((acc, item) => {
+            // Se asegura que la categoría sea un string válido
+            const category = String(item.category || 'Sin Categoría');
+            // Asegura que el monto sea un número para la suma
+            const amount = Number(item.amount) || 0;
+
+            acc[category] = (acc[category] || 0) + amount;
+            return acc;
+        }, {});
+    };
+
+    const gastosPorCategoria = resumenPorCategoria(gastos);
+    const categorias = Object.keys(gastosPorCategoria);
+    const montos = Object.values(gastosPorCategoria);
+
+    // Si no hay gastos, no se muestra el gráfico
+    if (montos.length === 0) {
+        return (
+            <div className="p-3 border rounded h-100">
+                <h5 className="mb-3">Resumen de Gastos por Categoría</h5>
+                <p className="text-muted">No hay gastos para mostrar en el gráfico.</p>
+            </div>
+        );
+    }
+
+    // Generar colores de forma simple (puedes expandir esta paleta)
+    const coloresBase = [
+        'rgba(255, 99, 132, 0.8)', // Rojo
+        'rgba(54, 162, 235, 0.8)', // Azul
+        'rgba(255, 206, 86, 0.8)', // Amarillo
+        'rgba(75, 192, 192, 0.8)', // Turquesa
+        'rgba(153, 102, 255, 0.8)', // Violeta
+        'rgba(255, 159, 64, 0.8)', // Naranja
+    ];
+
+    // Mapea colores a categorías, repitiendo si hay más de 6 categorías
+    const colores = categorias.map((_, index) => coloresBase[index % coloresBase.length]);
+
+    // Datos para el gráfico de pastel
+    const dataGrafico = {
+        labels: categorias, // Nombres de las categorías
+        datasets: [
+            {
+                label: 'Monto de Gasto (₡)',
+                data: montos, // Montos totales por categoría
+                backgroundColor: colores,
+                hoverOffset: 4,
+                borderColor: '#ffffff', // Borde blanco entre segmentos
+                borderWidth: 1,
+            }
+        ]
+    };
+
+    const opcionesGrafico = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'right', // Muestra la leyenda a la derecha
+            },
+            title: {
+                display: false,
+                text: 'Distribución de Gastos',
+            },
+        },
+    };
+
+    return (
+        <div className="p-3 border rounded h-100">
+            <h5 className="mb-3">Resumen de Gastos por Categoría</h5>
+
+            <div style={{ maxHeight: '350px', display: 'flex', justifyContent: 'center' }}>
+                <Pie data={dataGrafico} options={opcionesGrafico} />
+            </div>
+        </div>
+    );
+};

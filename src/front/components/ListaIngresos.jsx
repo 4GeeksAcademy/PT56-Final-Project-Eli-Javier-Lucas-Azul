@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
 export const ListaIngresos = ({ ingresos, onEdit, onDelete }) => {
     return (
         <div className="p-3 border rounded h-100">
-            <h5 className="mb-3">Ingresos</h5>
+            <h5 className="mb-3 text-center">Ingresos</h5>
 
             {ingresos.length === 0 && <p className="text-muted">No hay ingresos registrados.</p>}
 
@@ -35,7 +35,7 @@ export const ListaIngresos = ({ ingresos, onEdit, onDelete }) => {
                                             onClick={() => onEdit(item)}
                                             title="Editar"
                                         >
-                                            <i className="bi bi-pencil"></i> {/* ✏️ Icono de Edición */}
+                                            <i className="bi bi-pencil"></i>
                                         </Button>
                                         <Button
                                             size="sm"
@@ -43,7 +43,7 @@ export const ListaIngresos = ({ ingresos, onEdit, onDelete }) => {
                                             onClick={() => onDelete(item.id)}
                                             title="Eliminar"
                                         >
-                                            <i className="bi bi-trash"></i> {/* 🗑️ Icono de Eliminar */}
+                                            <i className="bi bi-trash"></i>
                                         </Button>
                                     </td>
                                 </tr>

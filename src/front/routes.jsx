@@ -11,6 +11,7 @@ import { Signup } from "./pages/Signup";
 import { Login } from "./pages/Login";
 import { Budget } from "./pages/Budget";
 import { CreateBudget } from "./pages/CreateBudget";
+import { DetallePresupuesto } from "./pages/DetallePresupuesto";
 import { AgregarGasto } from "./components/AgregarGasto";
 import { AgregarIngreso } from "./components/AgregarIngreso";
 import { PrivateRoute } from "./components/PrivateRoute";
@@ -18,6 +19,10 @@ import { InfoGestor } from "./pages/InfoGestor";
 import { ListaIngresos } from "./components/ListaIngresos";
 import { ListaGastos } from "./components/ListaGastos";
 import { Balance } from "./components/Balance";
+import { ListaPresupuestos } from "./components/ListaPresupuestos"
+import { Graficos } from "./components/Graficos"
+
+DetallePresupuesto
 
 
 export const router = createBrowserRouter(
@@ -35,6 +40,8 @@ export const router = createBrowserRouter(
       <Route path="CreateBudget" element={<CreateBudget />} />
       <Route path="AgregarGasto" element={<AgregarGasto />} />
       <Route path="AgregarIngreso" element={<AgregarIngreso />} />
+      <Route path="ListaPresupuestos" element={<ListaPresupuestos />} />
+      <Route path="Graficos" element={<Graficos />} />
 
       <Route path="ListaIngresos" element={<ListaIngresos />} />
       <Route path="ListaGastos" element={<ListaGastos />} />

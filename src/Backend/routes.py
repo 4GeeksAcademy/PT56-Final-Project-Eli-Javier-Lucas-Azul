@@ -102,12 +102,13 @@ def verify():
         "user": user.serialize()
     }), 200
 
-
 # =======================#
 #  Rutas de Presupuesto #
 # =======================#
 
 # Crear Presupuesto
+
+
 @api.route("/budgets", methods=["POST"])
 @jwt_required()
 def create_budget():
@@ -146,6 +147,37 @@ def get_budget(budget_id):
         return jsonify({"msg": "Presupuesto no encontrado"}), 404
 
     return jsonify(budget.serialize()), 200
+
+# Obtener todos los presupuestos por user
+
+
+@api.route("/budgets/user/<int:user_id>", methods=["GET"])
+@jwt_required()
+def get_user_budgets(user_id):
+    current_user_id = get_jwt_identity()
+    if int(current_user_id) != user_id:
+        return jsonify({"msg": "No autorizado para ver estos presupuestos"}), 403
+
+    budgets = Budget.query.filter_by(user_id=user_id).all()
+    # Asegúrate de que Budget.serialize() incluya los totales para el balance
+    return jsonify([budget.serialize() for budget in budgets]), 200
+
+# Eliminar Presupuesto por user
+
+
+@api.route("/budgets/<int:budget_id>", methods=["DELETE"])
+@jwt_required()
+def delete_budget(budget_id):
+    user_id = get_jwt_identity()
+    budget = Budget.query.filter_by(id=budget_id, user_id=user_id).first()
+
+    if not budget:
+        return jsonify({"msg": "Presupuesto no encontrado"}), 404
+
+    db.session.delete(budget)
+    db.session.commit()
+
+    return jsonify({"msg": "Presupuesto eliminado correctamente"}), 200
 
 
 # ====================#
@@ -189,8 +221,6 @@ def add_ingreso(budget_id):
 
 # Editar Ingreso
 
-
-# <-- CORRECCIÓN: Se agrega la ruta
 @api.route("/ingresos/<int:ingreso_id>", methods=["PUT"])
 @jwt_required()
 def update_ingreso(ingreso_id):
@@ -247,8 +277,8 @@ def delete_ingreso(ingreso_id):
 # ===================#
 #  Rutas de Gastos  #
 # ===================#
-# Agregar Gasto
-# <-- CORRECCIÓN: Se aplica correctamente el decorador
+
+
 @api.route("/budgets/<int:budget_id>/gasto", methods=["POST"])
 @jwt_required()
 def add_gasto(budget_id):
