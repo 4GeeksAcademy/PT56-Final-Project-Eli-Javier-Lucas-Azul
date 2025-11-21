@@ -1,5 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import Icon from "../assets/img/Icon.jpeg"
+import { useEffect } from "react";
+import { validateToken } from "../js/auth";
 
 export const Navbar = () => {
 
@@ -11,6 +13,14 @@ export const Navbar = () => {
 		localStorage.removeItem("user");
 		navigate("/login");
 	};
+
+	useEffect(() => {
+		const check = async () => {
+			const valid = await validateToken();
+			if (!valid) navigate("/login");
+		};
+		check();
+	}, []);
 
 	return (
 		<nav className="navbar container-fluid d-flex justify-content-between align-items-center px-3">
