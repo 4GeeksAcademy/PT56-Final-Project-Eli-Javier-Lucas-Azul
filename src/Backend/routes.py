@@ -1,11 +1,17 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint
+from flask import Flask, request, jsonify, url_for, Blueprint, send_file
 from Backend.models import db, User, Ingreso, Gasto, Budget
 from Backend.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, Image, TableStyle
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.pagesizes import letter
+from reportlab.lib import colors
+from io import BytesIO
+import os
 
 api = Blueprint('api', __name__)
 
@@ -221,6 +227,7 @@ def add_ingreso(budget_id):
 
 # Editar Ingreso
 
+
 @api.route("/ingresos/<int:ingreso_id>", methods=["PUT"])
 @jwt_required()
 def update_ingreso(ingreso_id):
@@ -370,3 +377,104 @@ def delete_gasto(gasto_id):
     db.session.commit()
 
     return jsonify({"msg": "Gasto eliminado"}), 200
+
+
+# Crear archivo PDF
+
+@api.route("/budgets/<int:budget_id>/pdf", methods=["GET"])
+@jwt_required()
+def generate_budget_pdf(budget_id):
+    user_id = get_jwt_identity()
+
+    # Verificar que exista y que pertenezca al usuario
+    budget = Budget.query.filter_by(id=budget_id, user_id=user_id).first()
+    if not budget:
+        return jsonify({"msg": "Presupuesto no encontrado"}), 404
+
+    # Crear archivo PDF en memoria
+    buffer = BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=letter)
+
+    styles = getSampleStyleSheet()
+    story = []
+
+    # --- LOGO Y TÍTULO ---
+
+    LOGO_PATH = os.path.join(os.path.dirname(
+        __file__), "static", "img", "Logo.jpeg")
+
+    try:
+        logo = Image(LOGO_PATH, width=50, height=50)
+    except:
+        logo = None
+
+    title = Paragraph(
+        f"<b>Billetera Familiar</b><br/>Reporte del Presupuesto: {budget.name}", styles["Title"])
+
+    if logo:
+        header = Table([[logo, title]], colWidths=[60, 400])
+    else:
+        header = Table([[title]])
+
+    header.setStyle(TableStyle([
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 0),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+    ]))
+
+    story.append(header)
+    story.append(Spacer(1, 20))
+
+    # Obtener ingresos y gastos
+    ingresos = Ingreso.query.filter_by(budget_id=budget_id).all()
+    gastos = Gasto.query.filter_by(budget_id=budget_id).all()
+
+    total_ingresos = sum(i.amount for i in ingresos)
+    total_gastos = sum(g.amount for g in gastos)
+    balance = total_ingresos - total_gastos
+
+    # Resumen general
+    story.append(
+        Paragraph(f"Total de Ingresos: ₡{total_ingresos:.2f}", styles["Normal"]))
+    story.append(
+        Paragraph(f"Total de Gastos: ₡{total_gastos:.2f}", styles["Normal"]))
+    story.append(Paragraph(f"Balance Final: ₡{balance:.2f}", styles["Normal"]))
+    story.append(Spacer(1, 20))
+
+    # Tabla combinada
+    rows = [["Tipo", "Descripción", "Categoría", "Monto"]]
+
+    for i in ingresos:
+        rows.append(["Ingreso", i.description, i.category, f"₡{i.amount:.2f}"])
+
+    for g in gastos:
+        rows.append(["Gasto", g.description, g.category, f"₡{g.amount:.2f}"])
+
+    if len(rows) > 1:
+        table = Table(rows, colWidths=[70, 200, 120, 80])
+        table.setStyle(TableStyle([
+            ("BACKGROUND", (0, 0), (-1, 0), colors.lightgrey),
+            ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
+            ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ]))
+        story.append(table)
+
+    story.append(Spacer(1, 30))
+
+    # --- FOOTER ---
+    lema = Paragraph(
+        "<i>Tu familia... Tus metas... Tu billetera familiar!</i>",
+        styles["Normal"]
+    )
+    story.append(lema)
+
+    # Crear PDF
+    doc.build(story)
+    buffer.seek(0)
+
+    return send_file(
+        buffer,
+        as_attachment=True,
+        download_name=f"presupuesto_{budget.name}.pdf",
+        mimetype="application/pdf"
+    )

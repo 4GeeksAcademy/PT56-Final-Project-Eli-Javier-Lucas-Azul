@@ -98,6 +98,39 @@ export const DetallePresupuesto = () => {
         setShowEditarIngreso(true);
     };
 
+    const handleDownloadPDF = async () => {
+        try {
+            const response = await fetch(`${API_URL}/api/budgets/${id}/pdf`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (!response.ok) {
+                alert("No se pudo generar el PDF.");
+                return;
+            }
+
+            // Convertir respuesta a Blob
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+
+            // Crear enlace para descargar
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `presupuesto_${budgetName}.pdf`;
+            a.click();
+
+            // Liberar memoria
+            window.URL.revokeObjectURL(url);
+
+        } catch (error) {
+            alert("Error al conectarse con el servidor.");
+        }
+    };
+
+
     const SkeletonDetalle = () => (
         <div className="container mt-5 text-center">
 
@@ -151,6 +184,12 @@ export const DetallePresupuesto = () => {
                     onClick={() => setShowGasto(true)}
                 >
                     <i className="bi bi-dash-circle"></i> Agregar Gasto
+                </button>
+                <button
+                    className="btn btn-outline-primary d-flex align-items-center gap-2"
+                    onClick={handleDownloadPDF}
+                >
+                    <i className="bi bi-file-earmark-pdf"></i> Descargar PDF
                 </button>
             </div>
             {/* Listas de Ingresos y Gastos*/}
