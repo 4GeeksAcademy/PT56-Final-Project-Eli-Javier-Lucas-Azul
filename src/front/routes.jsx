@@ -21,6 +21,7 @@ import { ListaGastos } from "./components/ListaGastos";
 import { Balance } from "./components/Balance";
 import { ListaPresupuestos } from "./components/ListaPresupuestos"
 import { Graficos } from "./components/Graficos"
+import { GraficoCarrusel } from "./components/GraficoCarrusel";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -56,6 +57,7 @@ export const router = createBrowserRouter(
       <Route path="ListaIngresos" element={<ListaIngresos />} />
       <Route path="ListaGastos" element={<ListaGastos />} />
       <Route path="Balance" element={<Balance />} />
+      <Route path="GraficoCarrusel" element={<GraficoCarrusel />} />
 
 
 

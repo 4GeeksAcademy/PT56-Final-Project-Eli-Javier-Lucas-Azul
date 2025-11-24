@@ -7,10 +7,15 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 // Esto es esencial para que Chart.js sepa cómo dibujar el Pie Chart
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const Graficos = ({ gastos }) => {
+export const Graficos = ({
+    datos = [],
+    titulo = "Resumen por Categoría",
+    label = "Monto (₡)"
+}) => {
 
-    // Lógica para resumir gastos por categoría
+    // Lógica para resumir los datos por categoría
     const resumenPorCategoria = (items) => {
+        if (!Array.isArray(items)) return [];
         return items.reduce((acc, item) => {
             // Se asegura que la categoría sea un string válido
             const category = String(item.category || 'Sin Categoría');
@@ -22,16 +27,16 @@ export const Graficos = ({ gastos }) => {
         }, {});
     };
 
-    const gastosPorCategoria = resumenPorCategoria(gastos);
-    const categorias = Object.keys(gastosPorCategoria);
-    const montos = Object.values(gastosPorCategoria);
+    const datosPorCategoria = resumenPorCategoria(datos);
+    const categorias = Object.keys(datosPorCategoria);
+    const montos = Object.values(datosPorCategoria);
 
-    // Si no hay gastos, no se muestra el gráfico
+    // Si no hay datos, no se muestra el gráfico
     if (montos.length === 0) {
         return (
             <div className="p-3 border rounded h-100">
-                <h5 className="mb-3">Resumen de Gastos por Categoría</h5>
-                <p className="text-muted">No hay gastos para mostrar en el gráfico.</p>
+                <h5 className="mb-3">{titulo}</h5>
+                <p className="text-muted">No hay datos para mostrar en el gráfico.</p>
             </div>
         );
     }
@@ -54,7 +59,7 @@ export const Graficos = ({ gastos }) => {
         labels: categorias, // Nombres de las categorías
         datasets: [
             {
-                label: 'Monto de Gasto (₡)',
+                label: label,
                 data: montos, // Montos totales por categoría
                 backgroundColor: colores,
                 hoverOffset: 4,
@@ -69,19 +74,14 @@ export const Graficos = ({ gastos }) => {
         plugins: {
             legend: {
                 position: 'right', // Muestra la leyenda a la derecha
-            },
-            title: {
-                display: false,
-                text: 'Distribución de Gastos',
-            },
+            }
         },
     };
 
     return (
         <div className="p-3 border rounded h-100">
-            <h5 className="mb-3">Resumen de Gastos por Categoría</h5>
-
-            <div style={{ maxHeight: '350px', display: 'flex', justifyContent: 'center' }}>
+            <h5 className="mb-3 text-center">{titulo}</h5>
+            <div style={{ height: '250px', width: '400px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Pie data={dataGrafico} options={opcionesGrafico} />
             </div>
         </div>

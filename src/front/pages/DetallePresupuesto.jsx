@@ -11,6 +11,7 @@ import { AgregarIngreso } from '../components/AgregarIngreso';
 import { AgregarGasto } from '../components/AgregarGasto';
 import { EditarGasto } from '../components/EditarGasto';
 import { EditarIngreso } from '../components/EditarIngreso';
+import { GraficoCarrusel } from '../components/GraficoCarrusel';
 
 export const DetallePresupuesto = () => {
     const { id } = useParams();
@@ -192,6 +193,7 @@ export const DetallePresupuesto = () => {
                     <i className="bi bi-file-earmark-pdf"></i> Descargar PDF
                 </button>
             </div>
+
             {/* Listas de Ingresos y Gastos*/}
             <div className="row g-4">
                 <div className="col-md-6">
@@ -209,12 +211,14 @@ export const DetallePresupuesto = () => {
                     />
                 </div>
             </div>
+
             <div className="row g-4 mb-5">
+
                 {/*  Gráfico de Resumen */}
                 <div className="col-md-6">
                     <div className="card h-100" style={{ backgroundColor: "#f2f2f2" }}>
                         <div className="card-body">
-                            <Graficos gastos={gastos} ingresos={ingresos} />
+                            <GraficoCarrusel ingresos={ingresos} egresos={gastos} />
                         </div>
                     </div>
                 </div>
