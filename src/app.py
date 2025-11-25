@@ -11,6 +11,7 @@ from Backend.routes import api
 from Backend.admin import setup_admin
 from Backend.commands import setup_commands
 from flask_jwt_extended import create_access_token, JWTManager
+from flask_cors import CORS
 
 # from models import Person
 
@@ -18,6 +19,7 @@ ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
 static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../dist/')
 app = Flask(__name__)
+CORS(app)
 app.url_map.strict_slashes = False
 
 # Creación del token mediante la clave guardada en la variable FLASK_APP_KEY (.env)

@@ -26,6 +26,7 @@ export const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+        setError("")
 
         try {
             const response = await fetch(`${API_URL}/api/login`, {
@@ -46,12 +47,12 @@ export const Login = () => {
                     navigate("/budget");
                 }, 1000);
             } else {
-                const error = await response.json();
                 localStorage.removeItem("jwt");
-                throw new Error(error.message && "Error al iniciar sesión.")
+                setError(data.Mensaje || "Error al iniciar sesión.");
             }
         } catch (error) {
-            setError(error.message);
+            console.error(error);
+            setError("Error de conexión. Intente más tarde.");
         } finally {
             setLoading(false)
         }

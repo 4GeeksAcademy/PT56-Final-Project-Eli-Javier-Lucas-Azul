@@ -14,14 +14,6 @@ export const Navbar = () => {
 		navigate("/login");
 	};
 
-	useEffect(() => {
-		const check = async () => {
-			const valid = await validateToken();
-			if (!valid) navigate("/login");
-		};
-		check();
-	}, []);
-
 	return (
 		<nav className="navbar container-fluid d-flex justify-content-around align-items-center">
 
