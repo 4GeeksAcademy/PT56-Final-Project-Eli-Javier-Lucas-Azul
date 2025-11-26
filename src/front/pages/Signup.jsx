@@ -68,7 +68,7 @@ export const Signup = () => {
 						<i className="fa-solid fa-user"></i>
 						<input
 							type="text"
-							className="form-control"
+							className="form-control-custom"
 							placeholder="Nombre"
 							aria-describedby="name"
 							id="name"
@@ -80,7 +80,7 @@ export const Signup = () => {
 						<i className="fa-solid fa-envelope"></i>
 						<input
 							type="email"
-							className="form-control"
+							className="form-control-custom"
 							placeholder="Email"
 							id="email"
 							value={formData.email}
@@ -91,7 +91,7 @@ export const Signup = () => {
 						<i className="fa-solid fa-lock"></i>
 						<input
 							type="password"
-							className="form-control"
+							className="form-control-custom"
 							placeholder="Contraseña"
 							id="password"
 							value={formData.password}

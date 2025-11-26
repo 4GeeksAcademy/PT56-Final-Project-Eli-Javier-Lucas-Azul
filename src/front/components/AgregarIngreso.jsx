@@ -68,8 +68,8 @@ export const AgregarIngreso = ({ show, handleClose, budgetId, token, onAdded }) 
 
     return (
         <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-                <Modal.Title>Agregar Ingresos</Modal.Title>
+            <Modal.Header closeButton className="header-modal">
+                <Modal.Title className="text-white">Agregar Ingresos</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
@@ -113,7 +113,7 @@ export const AgregarIngreso = ({ show, handleClose, budgetId, token, onAdded }) 
                 <Button variant="secondary" onClick={handleClose}>
                     Cancelar
                 </Button>
-                <Button variant="success" onClick={handleSubmit}>
+                <Button className="btn-custom" onClick={handleSubmit}>
                     Guardar Ingreso
                 </Button>
             </Modal.Footer>

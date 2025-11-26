@@ -72,7 +72,7 @@ export const Login = () => {
                         <i className="fa-solid fa-envelope"></i>
                         <input
                             type="email"
-                            className="form-control"
+                            className="form-control-custom"
                             id="email"
                             value={formData.email}
                             onChange={handleChange}
@@ -86,7 +86,7 @@ export const Login = () => {
                         <i className="fa-solid fa-lock"></i>
                         <input
                             type="password"
-                            className="form-control"
+                            className="form-control-custom"
                             id="password"
                             value={formData.password}
                             onChange={handleChange}

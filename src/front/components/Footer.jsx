@@ -12,13 +12,9 @@ export const Footer = () => {
 			</div>
 
 			<div className="footer_button">
-				<button
-					type="button"
-					className="btn"
-				// navigate
-				>
-					Sobre nosotros
-				</button>
+				<Link to="/SobreNosotros" className="btn btn-secondary">
+					Sobre Nosotros
+				</Link>
 			</div>
 
 			<div className="footer_copyright">

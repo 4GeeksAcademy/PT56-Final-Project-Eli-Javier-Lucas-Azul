@@ -174,7 +174,7 @@ export const DetallePresupuesto = () => {
             {/* Sección de Botones */}
             <div className="d-flex justify-content-center gap-3 mb-4">
                 <button
-                    className="btn btn-outline-success d-flex align-items-center gap-2"
+                    className="btn btn-outline-custom d-flex align-items-center gap-2"
                     onClick={() => setShowIngreso(true)}
                 >
                     <i className="bi bi-plus-circle"></i> Agregar Ingreso
@@ -195,7 +195,7 @@ export const DetallePresupuesto = () => {
             </div>
 
             {/* Listas de Ingresos y Gastos*/}
-            <div className="row g-4">
+            <div className="row g-4 pb-5">
                 <div className="col-md-6">
                     <ListaIngresos
                         ingresos={ingresos}
@@ -265,7 +265,7 @@ export const DetallePresupuesto = () => {
                 token={token}
                 onUpdated={refreshData}
             />
-            <div className="text-center mt-4">
+            <div className="text-center mt-4 pb-5">
                 <button
                     className="btn btn-custom px-4"
                     onClick={() => navigate("/Budget")}

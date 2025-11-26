@@ -272,7 +272,7 @@ def delete_ingreso(ingreso_id):
         return jsonify({"msg": "Ingreso no encontrado"}), 404
 
     budget = Budget.query.get(ingreso.budget_id)
-    if budget.user_id != user_id:
+    if budget.user_id != int (user_id):
         return jsonify({"msg": "No autorizado"}), 403
 
     db.session.delete(ingreso)
@@ -370,7 +370,7 @@ def delete_gasto(gasto_id):
         return jsonify({"msg": "Gasto no encontrado"}), 404
 
     budget = Budget.query.get(gasto.budget_id)
-    if budget.user_id != user_id:
+    if budget.user_id != int(user_id):
         return jsonify({"msg": "No autorizado"}), 403
 
     db.session.delete(gasto)
