@@ -59,20 +59,19 @@ export const Login = () => {
     };
 
     return (
-        <div className="container_formulario d-flex flex-column">
+        <div className="formulario">
             <div>
-                <Form className="card p-3" style={{ backgroundColor: "#2c2f36" }} onSubmit={handleSubmit}>
+                <Form className="formulario-data p-3" onSubmit={handleSubmit}>
 
                     <div className="text-center">
                         <h1 className="text-white pb-3">Iniciar Sesion</h1>
                     </div>
 
                     {/* Ingresar Email*/}
-                    <div className="input-container mb-3">
+                    <div className="formulario-input">
                         <i className="fa-solid fa-envelope"></i>
                         <input
                             type="email"
-                            className="form-control-custom"
                             id="email"
                             value={formData.email}
                             onChange={handleChange}
@@ -82,11 +81,10 @@ export const Login = () => {
                     </div>
 
                     {/* Ingresar password*/}
-                    <div className="input-container mb-3">
+                    <div className="formulario-input">
                         <i className="fa-solid fa-lock"></i>
                         <input
                             type="password"
-                            className="form-control-custom"
                             id="password"
                             value={formData.password}
                             onChange={handleChange}
@@ -98,13 +96,15 @@ export const Login = () => {
                     {error && <div className="alert alert-danger">{error}</div>}
 
                     {/* Botón */}
-                    <Button
-                        type="submit"
-                        className="btn w-100 btn-iniciar_sesion"
-                        disabled={loading}
-                    >
-                        {loading ? "Cargando..." : "Iniciar Sesión"}
-                    </Button>
+                    <div className="formulario-button">
+                        <Button
+                            type="submit"
+                            className="btn w-100 formulario-button_iniciar-sesion"
+                            disabled={loading}
+                        >
+                            {loading ? "Cargando..." : "Iniciar Sesión"}
+                        </Button>
+                    </div>
                 </Form>
             </div>
         </div>

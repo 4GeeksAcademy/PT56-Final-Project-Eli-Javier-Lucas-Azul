@@ -58,17 +58,16 @@ export const Signup = () => {
 		}
 	}
 	return (
-		<div className="container_formulario d-flex flex-column">
+		<div className="formulario signup">
 			<div>
-				<form className="card p-3" onSubmit={handleSubmit}>
+				<form className="formulario-data p-3" onSubmit={handleSubmit}>
 					<div className="text-center">
 						<h1 className="text-white pb-3">Registrate</h1>
 					</div>
-					<div className="input-container mb-3">
+					<div className="formulario-input">
 						<i className="fa-solid fa-user"></i>
 						<input
 							type="text"
-							className="form-control-custom"
 							placeholder="Nombre"
 							aria-describedby="name"
 							id="name"
@@ -76,22 +75,20 @@ export const Signup = () => {
 							onChange={handleChange}
 						/>
 					</div>
-					<div className="input-container mb-3">
+					<div className="formulario-input">
 						<i className="fa-solid fa-envelope"></i>
 						<input
 							type="email"
-							className="form-control-custom"
 							placeholder="Email"
 							id="email"
 							value={formData.email}
 							onChange={handleChange}
 						/>
 					</div>
-					<div className="input-container mb-3">
+					<div className="formulario-input">
 						<i className="fa-solid fa-lock"></i>
 						<input
 							type="password"
-							className="form-control-custom"
 							placeholder="Contraseña"
 							id="password"
 							value={formData.password}
@@ -102,10 +99,10 @@ export const Signup = () => {
 					{message && <div className="alert alert-success">{message}</div>}
 					{error && <div className="alert alert-danger">{error}</div>}
 
-					<div className="d-flex justify-content-center gap-2">
+					<div className="formulario-button">
 						<button
 							type="submit"
-							className="btn btn-registro w-100"
+							className="btn formulario-button_registro"
 							disabled={loading}
 						>
 							{loading ? "Cargando..." : "Registrarse"}

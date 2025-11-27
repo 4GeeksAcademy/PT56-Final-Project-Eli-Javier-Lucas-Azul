@@ -172,22 +172,22 @@ export const DetallePresupuesto = () => {
             <h2 className='text-center mb-4'>Detalle del Presupuesto: {budgetName}</h2>
 
             {/* Sección de Botones */}
-            <div className="d-flex justify-content-center gap-3 mb-4">
+            <div className="detalle_presupuesto-buttons">
                 <button
-                    className="btn btn-outline-custom d-flex align-items-center gap-2"
+                    className="btn ingreso"
                     onClick={() => setShowIngreso(true)}
                 >
                     <i className="bi bi-plus-circle"></i> Agregar Ingreso
                 </button>
 
                 <button
-                    className="btn btn-outline-danger d-flex align-items-center gap-2"
+                    className="btn gasto"
                     onClick={() => setShowGasto(true)}
                 >
                     <i className="bi bi-dash-circle"></i> Agregar Gasto
                 </button>
                 <button
-                    className="btn btn-outline-primary d-flex align-items-center gap-2"
+                    className="btn pdf"
                     onClick={handleDownloadPDF}
                 >
                     <i className="bi bi-file-earmark-pdf"></i> Descargar PDF
@@ -265,9 +265,10 @@ export const DetallePresupuesto = () => {
                 token={token}
                 onUpdated={refreshData}
             />
-            <div className="text-center mt-4 pb-5">
+
+            <div className="detalle_presupuesto_volver">
                 <button
-                    className="btn btn-custom px-4"
+                    className="btn"
                     onClick={() => navigate("/Budget")}
                 >
                     ← Volver a Presupuestos

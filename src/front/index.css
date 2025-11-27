@@ -21,7 +21,11 @@
 }
 
 /*######################### Estilos para el Navbar #########################*/
+
 .navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   background-color: #0e6b64;
   width: 100%;
   gap: 70px;
@@ -30,20 +34,26 @@
   -moz-box-shadow: 0px 4px 26px 1px rgba(14, 107, 100, 0.82);
 }
 
-.nav-text {
+.navbar-container {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-text {
   font-family: "Roboto", sans-serif;
   border-left: 2px solid #00a884;
   margin-left: 5px;
   padding-left: 5px;
+  color: #fff;
 }
 
-.nav-text h1 {
+.navbar-text h1 {
   font-size: 35px;
   position: relative;
   cursor: default;
 }
 
-.nav-text h1::after {
+.navbar-text h1::after {
   content: "";
   position: absolute;
   bottom: -1px;
@@ -54,28 +64,18 @@
   transition: width 0.4s ease-out;
 }
 
-.nav-text h1:hover::after {
+.navbar-text h1:hover::after {
   width: 100%;
 }
 
-.btn-navbar {
-  border: 1px solid #000;
-  color: #000;
-}
-
-.btn-navbar:hover {
-  color: #fff;
-  background-color: #00a884;
-}
-
-.nav-btns {
+.navbar-buttons {
   font-size: 18px;
   background-color: #0e6b64;
   color: #fff;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.nav-btns:hover {
+.navbar-buttons:hover {
   color: #fff;
   border: 1px solid #0e6b64;
   background: #00a884;
@@ -83,21 +83,21 @@
   transform: translateY(-3px);
 }
 
-.nav-btn_cerrar_sesion,
-.nav-btn_budget {
+.navbar-button_cerrar-sesion,
+.navbar-button_budget {
   font-size: 18px;
   color: #fff;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.nav-btn_cerrar_sesion:hover {
+.navbar-button_cerrar-sesion:hover {
   color: #fff;
   background: #dc2525;
   box-shadow: 0 4px 20px #dc252580;
   transform: translateY(-3px);
 }
 
-.nav-btn_budget:hover {
+.navbar-button_budget:hover {
   color: #fff;
   background: #ec9a06;
   box-shadow: 0 4px 20px #ec9a0680;
@@ -106,7 +106,9 @@
 
 /*######################### Estilos para los formularios <Login> y <Signup> #########################*/
 
-.container_formulario {
+.formulario {
+  display: flex;
+  flex-direction: column;
   min-width: 500px;
   font-family: "M PLUS Rounded 1c", sans-serif;
   font-weight: 800;
@@ -116,59 +118,21 @@
   min-height: 63vh;
 }
 
-.card {
+.formulario-data {
   background-color: #2c2f36;
   box-shadow: 0px 4px 26px 1px rgba(44, 47, 54, 0.82);
   -webkit-box-shadow: 0px 4px 26px 1px rgba(44, 47, 54, 0.82);
   -moz-box-shadow: 0px 4px 26px 1px rgba(44, 47, 54, 0.82);
 }
 
-.form-control-custom {
-  background-color: #515963;
+.formulario-input {
   border: none;
   color: #fff;
-}
-
-.form-control-custom::placeholder {
-  color: #fff;
-}
-
-.btn-registro,
-.btn-iniciar_sesion {
-  background-color: #0e6b64;
-  border: none;
-  color: #fff;
-  font-size: 20px;
-}
-
-.btn-registro:hover,
-.btn-iniciar_sesion:hover {
-  background-color: #00a884;
-  color: #fff;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.btn-iniciar_sesion:focus,
-.btn-registro:focus {
-  background: #00a884;
-  color: #fff;
-  box-shadow: 0 4px 20px #00a88480;
-  transform: translateY(-3px);
-}
-
-.btn-iniciar_sesion:disabled,
-.btn-registro:disabled {
-  background-color: #0b5a54;
-  color: #fff;
-}
-/*######################### Estilos para los input #########################*/
-
-.input-container {
   position: relative;
   margin-bottom: 15px;
 }
 
-.input-container i {
+.formulario-input i {
   position: absolute;
   left: 10px;
   top: 50%;
@@ -176,7 +140,7 @@
   color: #00adb5;
 }
 
-.input-container input {
+.formulario-input input {
   width: 100%;
   padding: 10px 35px;
   border-radius: 5px;
@@ -186,13 +150,53 @@
   font-size: 20px;
 }
 
+.formulario-input input::placeholder {
+  color: #fff;
+}
+
+.formulario-button {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.formulario-button_registro,
+.formulario-button_iniciar-sesion {
+  background-color: #0e6b64;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  width: 100%;
+}
+
+.formulario-button_registro:hover,
+.formulario-button_iniciar-sesion:hover {
+  background-color: #00a884;
+  color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.formulario-button_iniciar-sesion:focus,
+.formulario-button_registro:focus {
+  background: #00a884;
+  color: #fff;
+  box-shadow: 0 4px 20px #00a88480;
+  transform: translateY(-3px);
+}
+
+.formulario-button_iniciar-sesion:disabled,
+.formulario-button_registro:disabled {
+  background-color: #0b5a54;
+  color: #fff;
+}
+
 /*######################### Estilos para el Home #########################*/
-.home_img {
+.home-img {
   width: 580px;
   height: auto;
 }
 
-.home_text {
+.home-text {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -200,17 +204,17 @@
   background-color: #fff;
 }
 
-.home_text h1 {
+.home-text h1 {
   font-family: "Poppins", sans-serif;
   font-weight: bold;
   font-size: 70px;
 }
 
-.home_text p {
+.home-text p {
   font-family: "Inter", sans-serif;
 }
 
-.home_button {
+.home-button {
   background-color: #0e6b64;
   border: 1px solid #0e6b64;
   width: 25%;
@@ -218,7 +222,7 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.home_button:hover {
+.home-button:hover {
   color: #fff;
   background: #00a884;
   box-shadow: 0 4px 20px #00a88480;
@@ -274,8 +278,8 @@
   font-family: "Libre Franklin", sans-serif;
 }
 
+/* Se refiere al contenedor de las 'Cards' */
 .info-gestor_consejos ul {
-  /* Se refiere al contenedor de las 'Cards' */
   list-style-type: none;
   display: flex;
   gap: 20px;
@@ -283,8 +287,8 @@
   margin-top: 30px;
 }
 
+/* Se refiere a las 'Cards' */
 .info-gestor_consejos ul li {
-  /* Se refiere a las 'Cards' */
   width: 350px;
   background-color: #fff;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -294,14 +298,14 @@
   box-shadow: 0 4px 20px #ffffffdc;
 }
 
+/* Se refiere a los 'H3' de las 'Cards' */
 .info-gestor_consejos ul li h3 {
-  /* Se refiere a los 'H3' de las 'Cards' */
   font-size: 20px;
   font-weight: 600;
 }
 
+/* Se refiere a los 'P' de las 'Cards' */
 .info-gestor_consejos ul li p {
-  /* Se refiere a los 'P' de las 'Cards' */
   font-size: 14px;
 }
 
@@ -337,20 +341,20 @@
   height: 100vh;
 }
 
-.budget_button {
+.budget-button {
   background-color: #0e6b64;
   color: #fff;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.budget_button:hover {
+.budget-button:hover {
   color: #fff;
   background: #00a884;
   box-shadow: 0 4px 20px #00a88480;
   transform: translateY(-3px);
 }
 
-.budget_paragraph {
+.budget-paragraph {
   font-size: 18px;
   display: flex;
   justify-content: center;
@@ -361,12 +365,25 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.budget_paragraph:hover {
+.budget-paragraph:hover {
   transform: translateY(3px);
 }
 
-.budget_paragraph i {
+.budget-paragraph i {
   font-size: 15px;
+}
+
+.budget-list {
+  padding: 20px;
+  margin: 20px 0;
+  background-color: #2c2f36;
+  box-shadow: 0px 4px 26px 1px rgba(44, 47, 54, 0.82);
+  -webkit-box-shadow: 0px 4px 26px 1px rgba(44, 47, 54, 0.82);
+  -moz-box-shadow: 0px 4px 26px 1px rgba(44, 47, 54, 0.82);
+}
+
+.budget-list p {
+  margin: 0;
 }
 
 /* ######################### Estilos para el CreateBudget ######################### */
@@ -448,6 +465,85 @@
   transform: translateX(-3px);
 }
 
+/* ######################### Estilos para el Detalle Presupuesto ######################### */
+
+.detalle_presupuesto-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.detalle_presupuesto-buttons button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.detalle_presupuesto-buttons .ingreso {
+  border-color: #006e57;
+  color: #006e57;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.detalle_presupuesto-buttons .ingreso:hover {
+  border-color: #00a884;
+  background-color: #00a884;
+  color: #fff;
+  box-shadow: 0 4px 20px #00a88480;
+  transform: translateY(-3px);
+}
+
+.detalle_presupuesto-buttons .gasto {
+  border-color: #dc2525;
+  color: #dc2525;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.detalle_presupuesto-buttons .gasto:hover {
+  border-color: #dc2525;
+  background-color: #dc2525;
+  color: #fff;
+  box-shadow: 0 4px 20px #dc252580;
+  transform: translateY(-3px);
+}
+
+.detalle_presupuesto-buttons .pdf {
+  border-color: #0d6efd;
+  color: #0d6efd;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.detalle_presupuesto-buttons .pdf:hover {
+  border-color: #0d6efd;
+  background-color: #0d6efd;
+  color: #fff;
+  box-shadow: 0 4px 20px #0d6efd80;
+  transform: translateY(-3px);
+}
+
+.detalle_presupuesto_volver {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.detalle_presupuesto_volver button {
+  background-color: #ec9a06;
+  border-color: #ec9a06;
+  color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.detalle_presupuesto_volver button:hover {
+  background-color: #ec9a06;
+  border-color: #ec9a06;
+  color: #fff;
+  box-shadow: 0 4px 20px #ec9a0680;
+  transform: translateX(-3px);
+}
+
 /* ######################### Estilos para el Footer ######################### */
 
 .footer {
@@ -461,43 +557,43 @@
   gap: 10px;
 }
 
-.footer_title {
+.footer-title {
   font-family: "Poppins", sans-serif;
   text-align: center;
   display: flex;
   color: #fff;
 }
 
-.footer_title h4 {
+.footer-title h4 {
   margin: 0;
   padding: 10px 0;
 }
 
-.footer_link {
+.footer-link {
   width: 25%;
   display: flex;
   justify-content: center;
 }
 
-.footer_link-descripcion {
+.footer-link-descripcion {
   background-color: #ec9a06;
   color: #fff;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.footer_link-descripcion:hover {
+.footer-link-descripcion:hover {
   background-color: #ec9a06;
   color: #fff;
   box-shadow: 0 4px 20px #ec9a0680;
   transform: translateY(-3px);
 }
 
-.footer_copyright {
+.footer-copyright {
   color: #a7a7a7;
   display: flex;
 }
 
-.footer_copyright p {
+.footer-copyright p {
   margin: 0;
   padding: 10px 0;
 }
@@ -563,8 +659,28 @@
 .btn-outline-custom:focus {
   box-shadow: 0 0 0 0.25rem rgba(14, 107, 100, 0.5);
 }
+
+.btn-custom {
+  background-color: #0e6b64;
+  border-color: #0e6b64;
+  color: #ffffff;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-custom:hover {
+  background-color: #0b524d;
+  border-color: #0a4b46;
+  color: #ffffff;
+}
+
+.btn-custom:focus {
+  background-color: #0b524d !important;
+  border-color: #0a4b46 !important;
+  box-shadow: 0 0 0 0.25rem rgba(14, 107, 100, 0.5) !important;
+}
 .header-modal {
-  background-color: rgb(91, 94, 93);
+  background-color: #5b5e5d;
   width: 100%;
   gap: 70px;
   box-shadow: 0px 4px 26px 1px rgba(154, 158, 158, 0.82);
