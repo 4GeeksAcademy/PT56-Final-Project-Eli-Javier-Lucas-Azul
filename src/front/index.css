@@ -573,11 +573,34 @@
 /* ######################### Estilos para cards de perfil ######################### */
 
 .perfil-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   position: relative;
   overflow: hidden;
   transition: transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
   background-color: #ffffff;
+  width: 350px;
+  height: 480px;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.perfil-foto {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 75px auto 10px;
+  display: block;
+}
+
+.perfil-card .card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
 }
 
 .perfil-card:hover {
@@ -595,7 +618,8 @@
   color: #ffffff;
   padding: 20px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
 
@@ -606,7 +630,13 @@
   bottom: 0;
 }
 
-.linkedin-btn {
+.icon-container {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.icon-link {
   font-size: 28px;
   color: white;
   background-color: #006e57;
@@ -619,7 +649,7 @@
   text-decoration: none;
 }
 
-.linkedin-btn:hover {
+.icon-btn:hover {
   background-color: #004d3d;
   transform: scale(1.1);
 }

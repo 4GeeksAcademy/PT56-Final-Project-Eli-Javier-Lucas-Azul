@@ -1,3 +1,7 @@
+import JavierImg from "../assets/img/javier.jpg";
+import LucasImg from "../assets/img/lucas.jpeg";
+
+
 export const SobreNosotros = () => {
     return (
         <div className="container mt-5 mb-5">
@@ -22,41 +26,88 @@ export const SobreNosotros = () => {
                         <div className="card perfil-card">
                             <img src="https://placehold.co/400" className="card-img-top" alt="Elizabeth" />
                             <div className="card-body">
-                                <h5 className="card-title">Elizabeth</h5>
-                                <p className="card-text descripcion-hover">
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi eum aliquid neque minima ipsam deserunt possimus ab officiis, nam, suscipit similique praesentium tempore, voluptates tenetur iste ratione! Ipsa, ad blanditiis.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-md-4">
-                        <div className="card perfil-card">
-                            <img src="https://placehold.co/400" className="card-img-top" alt="Javier" />
-                            <div className="card-body">
-                                <h5 className="card-title">Javier</h5>
-                                <p className="card-text descripcion-hover">
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae, debitis. Quaerat aspernatur asperiores perferendis quidem accusantium tempora odio minima placeat. Qui nesciunt porro animi delectus inventore ex aliquam error in!.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-md-4">
-                        <div className="card perfil-card">
-                            <img src="https://placehold.co/400" className="card-img-top" alt="Lucas" />
-                            <div className="card-body">
-                                <h5 className="card-title">Lucas</h5>
+                                <h5 className="card-title">Elizabeth Duarte</h5>
                                 <div className="card-text descripcion-hover">
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi repudiandae impedit dicta doloribus placeat dignissimos vel eaque eius, laboriosam est tempore adipisci cupiditate nihil similique nulla ipsum consequuntur ipsam? Omnis.</p>
-                                    <a
-                                        href="https://www.linkedin.com/in/lucas-urquiza-b6663624a/"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="linkedin-btn"
-                                    >
-                                        <i className="fa-brands fa-linkedin"></i>
-                                    </a>
+                                    <p>País: Costa Rica</p>
+                                    <p></p>
+                                    <div className="icon-container">
+                                        <a
+                                            href="https://www.linkedin.com/in/elizabeth-duarte/"
+                                            target="_blank"
+                                            className="icon-link"
+                                        >
+                                            <i className="fa-brands fa-linkedin"></i>
+                                        </a>
+                                        <a
+                                            href="https://github.com/liv-ortiz25"
+                                            target="_blank"
+                                            className="icon-link"
+                                        >
+                                            <i className="fa-brands fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-md-4">
+                        <div className="card perfil-card">
+                            <img src={JavierImg} className="perfil-foto" alt="Javier" />
+                            <div className="card-body">
+                                <h5 className="card-title">Javier Obando</h5>
+                                <div className="card-text descripcion-hover">
+                                    <p>País: Costa Rica</p>
+                                    <p>A lo largo de este proceso he aprendido muchísimo sobre desarrollo. Ha sido una experiencia con momentos retadores y otros muy gratificantes, pero cada etapa ha contribuido a un aprendizaje real y valioso.
+                                        Hoy siento que puedo desenvolverme bien tanto en el frontend como en el backend. Aun así, me identifico más con el trabajo del lado del backend, ya que la parte de diseño nunca fue mi punto más fuerte durante el bootcamp.
+                                    </p>
+                                    <div className="icon-container">
+                                        <a
+                                            href="https://www.linkedin.com/in/jobonilla05/"
+                                            target="_blank"
+                                            className="icon-link"
+                                        >
+                                            <i className="fa-brands fa-linkedin"></i>
+                                        </a>
+                                        <a
+                                            href="https://github.com/jabon05"
+                                            target="_blank"
+                                            className="icon-link"
+                                        >
+                                            <i className="fa-brands fa-github"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-md-4">
+                        <div className="card perfil-card">
+                            <img src={LucasImg} className="perfil-foto" alt="Lucas" />
+                            <div className="card-body">
+                                <h5 className="card-title">Lucas Urquiza</h5>
+                                <div className="card-text descripcion-hover">
+                                    <p>País: Argentina</p>
+                                    <p>Este curso fue uno de los mayores retos que he tenido. Fue una ventana a cosas que no tenia idea de su existencia. Me saco de mi zona de confort en la programación y me enseño un abanico de infinitas cosas que se pueden hacer con el desarrollo web.
+                                        Sin dudas es una de las experiencias que más me exigió y a su vez que más disfrute. Gracias a este curso, tengo la certeza de poder ser un desarrollador Full-Stack. Aunque me desenvelvo mejor del lado del frontend más que del backend, entiendo más sobre sus temas y sus formas de diseño.
+                                    </p>
+                                    <div className="icon-container">
+                                        <a
+                                            href="https://www.linkedin.com/in/lucas-urquiza-b6663624a/"
+                                            target="_blank"
+                                            className="icon-link"
+                                        >
+                                            <i className="fa-brands fa-linkedin"></i>
+                                        </a>
+                                        <a
+                                            href="https://github.com/LucasUr11"
+                                            target="_blank"
+                                            className="icon-link"
+                                        >
+                                            <i className="fa-brands fa-github"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
