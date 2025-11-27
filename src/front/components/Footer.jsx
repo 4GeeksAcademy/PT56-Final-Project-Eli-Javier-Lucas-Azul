@@ -7,17 +7,17 @@ export const Footer = () => {
 	return (
 		<div className="footer">
 
-			<div className="footer_title">
+			<div className="footer-title">
 				<h4 className="">Tu familia...Tus metas... Tu Billetera Familiar!</h4>
 			</div>
 
-			<div className="footer_link">
-				<Link to="/SobreNosotros" className="footer_link-descripcion btn">
+			<div className="footer-link">
+				<Link to="/SobreNosotros" className="footer-link-descripcion btn">
 					Sobre Nosotros
 				</Link>
 			</div>
 
-			<div className="footer_copyright">
+			<div className="footer-copyright">
 				<p>©2025. Billetera Familiar SA. Todos los derechos reservados.</p>
 			</div>
 		</div>

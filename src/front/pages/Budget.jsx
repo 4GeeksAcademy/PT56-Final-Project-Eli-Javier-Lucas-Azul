@@ -87,7 +87,7 @@ export const Budget = () => {
         <div className="container text-center budget mt-5">
             <h3>Estamos felices de verte,</h3>
             <h1>{user.name}.</h1>
-            <p className="budget_paragraph">
+            <p className="budget-paragraph">
                 <i className="fa-solid fa-angle-down"></i>
                 Gestiona tus presupuestos aquí
                 <i className="fa-solid fa-angle-down"></i>
@@ -95,7 +95,7 @@ export const Budget = () => {
 
             {/* Crear Presupuesto */}
             <button
-                className="btn budget_button m-2"
+                className="btn budget-button m-2"
                 onClick={() => navigate("/CreateBudget")}
             >
                 Crear Nuevo Presupuesto
@@ -103,19 +103,21 @@ export const Budget = () => {
             <hr />
 
             {/* Listado de Presupuestos */}
-            <div className="card p-4 my-4" style={{ border: '2px solid #2c2f36' }}>
-                <h4 className="card-title text-white">Estos son tus presupuestos</h4>
+            <div className="card budget-list">
                 {loading ? (
                     <SkeletonBudgets />
                 ) : budgets.length === 0 ? (
-                    <p>No tienes presupuestos creados. ¡Crea uno nuevo!</p>
+                    <p className="text-light">No tienes presupuestos creados. ¡Crea uno nuevo!</p>
                 ) : (
-                    <ListaPresupuestos
-                        budgets={budgets}
-                        onSelectBudget={handleSelectBudget}
-                        onRefresh={loadUserBudgets}
-                        token={token}
-                    />
+                    <div>
+                        <h4 className="text-white">Estos son tus presupuestos</h4>
+                        <ListaPresupuestos
+                            budgets={budgets}
+                            onSelectBudget={handleSelectBudget}
+                            onRefresh={loadUserBudgets}
+                            token={token}
+                        />
+                    </div>
                 )}
             </div>
         </div>
