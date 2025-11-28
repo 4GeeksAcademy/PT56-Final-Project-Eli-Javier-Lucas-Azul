@@ -256,7 +256,7 @@
 }
 
 .info-gestor_container {
-  width: 90%;
+  max-width: 90%;
   padding: 0 90px;
 }
 
@@ -299,6 +299,7 @@
 
 /* Se refiere al contenedor de las 'Cards' */
 .info-gestor_consejos ul {
+  width: 800px;
   list-style-type: none;
   display: flex;
   gap: 20px;
@@ -310,11 +311,12 @@
 .info-gestor_consejos ul li {
   width: 350px;
   background-color: #fff;
+  box-shadow: 0 4px 20px #006e57;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .info-gestor_consejos ul li:hover {
-  box-shadow: 0 4px 20px #ffffffdc;
+  box-shadow: 0 4px 20px #fff;
 }
 
 /* Se refiere a los 'H3' de las 'Cards' */

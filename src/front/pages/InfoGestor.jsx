@@ -60,16 +60,6 @@ export const InfoGestor = () => {
                                 </p>
                             </li>
 
-                            {/* <li className="card">
-                                <h3 className="px-4">Usa herramientas que te faciliten el seguimiento</h3>
-                                <p className="px-4">
-                                    Si la herramienta es compleja o poco práctica, será difícil mantener la constancia. Un sistema simple favorece la disciplina.
-                                </p>
-                                <p className="px-4">
-                                    Es por eso que en Billetera Familiar tenemos todo lo que necesitas para que crees tu propio presupuesto familiar. Una app en donde podes ver mediante nuestros gráficos cual es el sector que más dinero te demanda y tengas más control sobre tu dinero. Con una interfaz gráfica amable a la vista, pero muy práctica a la hora de usarla, intuitiva y, con unos pocos clicks, vas a tener tu presupuesto para que tengan el control de sus finanzas y cumplan todos sus objetivos.
-                                </p>
-                            </li> */}
-
                             <li className="card">
                                 <h3 className="px-4">Revisa y ajusta el presupuesto cada mes</h3>
                                 <p className="px-4">
