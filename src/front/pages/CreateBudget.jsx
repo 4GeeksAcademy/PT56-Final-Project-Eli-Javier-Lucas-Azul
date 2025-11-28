@@ -143,30 +143,32 @@ export const CreateBudget = () => {
         <div className="create_budget container">
 
             {/* Input + botón */}
-            <div className="create_budget-input_button">
-                <input
-                    type="text"
-                    placeholder="Nombre del presupuesto"
-                    value={budgetName}
-                    onChange={(e) => setBudgetName(e.target.value)}
-                    className="form-control w-50"
-                />
+            <div>
                 {!budgetId && (
-                    <select
-                        className="form-select w-auto"
-                        value={monedaSeleccionada.code}
-                        onChange={handleMonedaChange}
-                    >
-                        {currencies.map((curr) => (
-                            <option key={curr.code} value={curr.code}>
-                                {curr.code} - {curr.name}
-                            </option>
-                        ))}
-                    </select>
+                    <div className="create_budget-input_button">
+                        <input
+                            type="text"
+                            placeholder="Nombre del presupuesto"
+                            value={budgetName}
+                            onChange={(e) => setBudgetName(e.target.value)}
+                            className="form-control"
+                        />
+                        <select
+                            className="form-select w-auto"
+                            value={monedaSeleccionada.code}
+                            onChange={handleMonedaChange}
+                        >
+                            {currencies.map((curr) => (
+                                <option key={curr.code} value={curr.code}>
+                                    {curr.code} - {curr.name}
+                                </option>
+                            ))}
+                        </select>
+                        <button className="btn" onClick={crearBudget}>
+                            Crear Presupuesto
+                        </button>
+                    </div>
                 )}
-                <button className="btn" onClick={crearBudget}>
-                    Crear Presupuesto
-                </button>
             </div>
 
             {/* Botones Ingreso / Gasto */}

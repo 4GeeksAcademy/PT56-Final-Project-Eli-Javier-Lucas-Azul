@@ -299,11 +299,11 @@
 
 /* Se refiere al contenedor de las 'Cards' */
 .info-gestor_consejos ul {
-  width: 800px;
-  list-style-type: none;
   display: flex;
-  gap: 20px;
   flex-wrap: wrap;
+  max-width: 800px;
+  list-style-type: none;
+  gap: 20px;
   margin-top: 30px;
 }
 
@@ -421,6 +421,10 @@
   display: flex;
   justify-content: center;
   gap: 8px;
+}
+
+.create_budget-input_button input {
+  width: 25%;
 }
 
 .create_budget-input_button button {
