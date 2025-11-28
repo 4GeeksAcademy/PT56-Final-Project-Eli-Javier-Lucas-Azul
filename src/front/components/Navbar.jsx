@@ -56,7 +56,7 @@ export const Navbar = () => {
 							Sobre Nosotros
 						</Link>
 						<button className="btn navbar-button_cerrar-sesion" onClick={handleLogout}>Cerrar sesión</button>
-						<Link to={"/budget"} className="navbar-button_budget btn"><i className="fa-solid fa-arrow-right-to-bracket"></i></Link>
+						<Link to={"/budget"} className="navbar-button_budget btn">Presupuesto<i className="fa-solid fa-angle-right"></i></Link>
 					</div>
 				)}
 

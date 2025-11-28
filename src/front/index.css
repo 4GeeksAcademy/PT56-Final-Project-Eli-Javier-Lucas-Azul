@@ -543,8 +543,7 @@
 
 .detalle_presupuesto_volver {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
   margin: 20px;
 }
 
@@ -573,7 +572,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
 }
 
 .footer-title {

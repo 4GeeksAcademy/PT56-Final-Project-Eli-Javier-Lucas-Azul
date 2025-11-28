@@ -174,8 +174,15 @@ export const DetallePresupuesto = () => {
     }
     return (
         <div className="container mt-4">
-
-            <h2 className='text-center mb-4'>Detalle del Presupuesto: {budgetName}</h2>
+            <div className="detalle_presupuesto_volver">
+                <button
+                    className="btn"
+                    onClick={() => navigate("/Budget")}
+                >
+                    <i className="fa-solid fa-angle-left"></i>Volver a Presupuestos
+                </button>
+                <h2 className='text-center mb-4'>Detalle del Presupuesto: {budgetName}</h2>
+            </div>
 
             {/* Sección de Botones */}
             <div className="detalle_presupuesto-buttons">
@@ -278,14 +285,6 @@ export const DetallePresupuesto = () => {
                 onUpdated={refreshData}
             />
 
-            <div className="detalle_presupuesto_volver">
-                <button
-                    className="btn"
-                    onClick={() => navigate("/Budget")}
-                >
-                    ← Volver a Presupuestos
-                </button>
-            </div>
-        </div >
+        </div>
     );
 };
