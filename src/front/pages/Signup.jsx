@@ -15,7 +15,7 @@ export const Signup = () => {
 	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
 
-	const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3001";
+	// const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3001";
 
 	// Actualiza el estado 
 	const handleChange = (e) => {
@@ -30,7 +30,7 @@ export const Signup = () => {
 		try {
 			//Hacer el POST al backendzs
 
-			const response = await fetch(`${API_URL}/api/signup`, {
+			const response = await fetch("http://localhost:3001/api/signup", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
