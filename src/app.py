@@ -22,6 +22,7 @@ static_file_dir = os.path.join(os.path.dirname(
 app = Flask(__name__)
 CORS(app)
 
+
 app.url_map.strict_slashes = False
 
 # Creación del token mediante la clave guardada en la variable FLASK_APP_KEY (.env)
